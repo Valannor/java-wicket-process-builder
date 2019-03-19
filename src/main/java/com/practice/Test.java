@@ -1,13 +1,15 @@
 package com.practice;
 
+import com.practice.service.Operation;
+
 import java.util.List;
 
-import static com.practice.model.ScriptExecutor.execute;
+import static com.practice.service.Calculation.calculate;
 
 public class Test {
     public static void main(String[] args) {
-        List<String> list = execute("cmd.exe", "/c",
-                "src\\main\\resources\\Division.groovy", "1", "2");
+        List<String> list = calculate(Operation.ADDITION,
+                "1", "2");
         System.out.println(list);
     }
 }
