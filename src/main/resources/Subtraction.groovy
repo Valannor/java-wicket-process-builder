@@ -1,0 +1,1 @@
+println Integer.parseInt(args[0]) - Integer.parseInt(args[1]);
