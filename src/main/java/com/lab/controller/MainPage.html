@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+</head>
+<body>
+
+<form wicket:id="calculationForm">
+    <div>
+        <span wicket:id="lbl_1"></span>
+        <input wicket:id="operandField1"/>
+        <input wicket:id="operandField2"/>
+    </div>
+
+    <br>
+
+    <div>
+        <span wicket:id="lbl_2"></span>
+        <select wicket:id="operations">
+            <option value="Addition">Addition</option>
+            <option value="Subtraction">Subtraction</option>
+            <option value="Multiplication">Multiplication</option>
+            <option value="Division">Division</option>
+        </select>
+        <input wicket:id="submit" type="submit" value="Submit"/>
+    </div>
+
+    <br>
+
+    <div>
+        <span wicket:id="lbl_3"></span>
+        <span wicket:id="lbl_4"></span>
+    </div>
+</form>
+
+</body>
+</html>
