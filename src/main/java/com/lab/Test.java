@@ -1,10 +1,10 @@
-package com.practice;
+package com.lab;
 
-import com.practice.service.Operation;
+import com.lab.service.Operation;
 
 import java.util.List;
 
-import static com.practice.service.Calculation.calculate;
+import static com.lab.service.Calculation.calculate;
 
 public class Test {
     public static void main(String[] args) {

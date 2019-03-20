@@ -1,4 +1,4 @@
-package com.practice.service;
+package com.lab.service;
 
 public enum Operation {
     ADDITION("src\\main\\resources\\Addition.groovy"),

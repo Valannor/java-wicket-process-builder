@@ -1,4 +1,4 @@
-package com.practice.model;
+package com.lab.model;
 
 import java.io.BufferedReader;
 import java.io.IOException;

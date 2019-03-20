@@ -1,8 +1,8 @@
-package com.practice.service;
+package com.lab.service;
 
 import java.util.List;
 
-import static com.practice.model.ScriptExecutor.execute;
+import static com.lab.model.ScriptExecutor.execute;
 
 public interface Calculation {
     static List<String> calculate(Operation operation, String operand1, String operand2) {
