@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.Model;
 
 import java.util.Arrays;
@@ -28,18 +29,34 @@ public class MainPage extends WebPage {
 
         private Label result;
 
+        // TODO: 21.03.2019 Extract AbstractReadOnlyModel for less code
         public CalculationForm(String id) {
             super(id);
 
-            add(new Label("lbl_1", new Model<>("Operands: ")));
+            add(new Label("label_operands", new AbstractReadOnlyModel<String>() {
+                @Override
+                public String getObject() {
+                    return getString("label_operands");
+                }
+            }));
             add(this.operandField1 = new TextField<>("operandField1", new Model<>()));
             add(this.operandField2 = new TextField<>("operandField2", new Model<>()));
 
-            add(new Label("lbl_2", new Model<>("Operations: ")));
+            add(new Label("label_operations", new AbstractReadOnlyModel<String>() {
+                @Override
+                public String getObject() {
+                    return getString("label_operations");
+                }
+            }));
             add(this.operations = new DropDownChoice<>("operations", new Model<>(), Arrays.asList(Operation.values())));
             add(this.submit = new Button("submit"));
 
-            add(new Label("lbl_3", new Model<>("Result: ")));
+            add(new Label("label_result", new AbstractReadOnlyModel<String>() {
+                @Override
+                public String getObject() {
+                    return getString("label_result");
+                }
+            }));
             add(this.result = new Label("lbl_4", new Model<>("")));
         }
 
