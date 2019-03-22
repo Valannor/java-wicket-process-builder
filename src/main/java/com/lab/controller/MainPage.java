@@ -40,8 +40,8 @@ public class MainPage extends WebPage {
             operationUnit = new OperationUnit();
 
             add(new Label("label_operands", (IModel) () -> getString("label_operands")));
-            add(this.operandField1 = new TextField<>("operandField1", new PropertyModel(operationUnit, "operand1")));
-            add(this.operandField2 = new TextField<>("operandField2", new PropertyModel(operationUnit, "operand2")));
+            add(this.operandField1 = new TextField<>("operandField1", new PropertyModel<String>(operationUnit, "operand1")));
+            add(this.operandField2 = new TextField<>("operandField2", new PropertyModel<String>(operationUnit, "operand2")));
 
             add(new Label("label_operations", (IModel) () -> getString("label_operations")));
 
@@ -60,7 +60,7 @@ public class MainPage extends WebPage {
             // TODO: This is how it looks in java 1.8 (lambda)
             add(new Label("label_result", (IModel) () -> getString("label_result")));
 
-            add(this.resultField = new Label("lbl_4", new PropertyModel(operationUnit, "result")));
+            add(this.resultField = new Label("lbl_4", new Model<>("")));
 
         }
 
