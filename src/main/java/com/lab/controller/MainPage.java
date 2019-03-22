@@ -1,6 +1,6 @@
 package com.lab.controller;
 
-import com.lab.model.Operand;
+import com.lab.model.OperationUnit;
 import com.lab.service.Calculation;
 import com.lab.service.Operation;
 import org.apache.wicket.markup.html.WebPage;
@@ -31,21 +31,17 @@ public class MainPage extends WebPage {
 
         private Label resultField;
 
-        private Operand operandObject1;
-        private Operand operandObject2;
-        private Operand resultObject;
+        private OperationUnit operationUnit;
 
         // TODO: 21.03.2019 Extract AbstractReadOnlyModel for less code
         public CalculationForm(String id) {
             super(id);
 
-            operandObject1 = new Operand();
-            operandObject2 = new Operand();
-            resultObject = new Operand();
+            operationUnit = new OperationUnit();
 
             add(new Label("label_operands", (IModel) () -> getString("label_operands")));
-            add(this.operandField1 = new TextField<>("operandField1", new PropertyModel(operandObject1, "value")));
-            add(this.operandField2 = new TextField<>("operandField2", new PropertyModel(operandObject2, "value")));
+            add(this.operandField1 = new TextField<>("operandField1", new PropertyModel(operationUnit, "operand1")));
+            add(this.operandField2 = new TextField<>("operandField2", new PropertyModel(operationUnit, "operand2")));
 
             add(new Label("label_operations", (IModel) () -> getString("label_operations")));
 
@@ -64,7 +60,7 @@ public class MainPage extends WebPage {
             // TODO: This is how it looks in java 1.8 (lambda)
             add(new Label("label_result", (IModel) () -> getString("label_result")));
 
-            add(this.resultField = new Label("lbl_4", new PropertyModel(resultObject, "value")));
+            add(this.resultField = new Label("lbl_4", new PropertyModel(operationUnit, "result")));
 
         }
 
@@ -76,7 +72,7 @@ public class MainPage extends WebPage {
             resultField.setDefaultModel(new Model<>(calculation));
 
             // TODO: Here we check if value really have changed
-            System.out.println(operandObject1.getValue());
+            System.out.println(operationUnit);
         }
     }
 }
