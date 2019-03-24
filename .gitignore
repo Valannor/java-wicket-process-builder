@@ -1,4 +1,5 @@
 *.iml
 *.idea
-*.target
-*.out
+*target
+*out
+*META-INF

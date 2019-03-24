@@ -3,6 +3,8 @@ package com.lab.controller;
 import com.lab.model.OperationUnit;
 import com.lab.service.Calculation;
 import com.lab.service.Operation;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -17,62 +19,68 @@ import java.util.Arrays;
 
 public class MainPage extends WebPage {
 
+    private Form calculationForm;
+
+    private Label operandsLabel;
+    private TextField<String> operandField1;
+    private TextField<String> operandField2;
+
+    private Label operationsLabel;
+    private DropDownChoice<Operation> operationsChoice;
+
+    private Button submit;
+
+    private Label resultLabel;
+    private Label resultValue;
+
+    private OperationUnit operationUnit;
+
     public MainPage() {
-        add(new CalculationForm("calculationForm"));
+
+        init();
+
+        add(calculationForm);
+
+        calculationForm.add(operandsLabel);
+        calculationForm.add(operandField1);
+        calculationForm.add(operandField2);
+
+        calculationForm.add(operationsLabel);
+        calculationForm.add(operationsChoice);
+
+        calculationForm.add(resultLabel);
+        calculationForm.add(resultValue);
+
+        calculationForm.add(submit);
     }
 
-    public class CalculationForm extends Form<String> {
+    private void init() {
+        operationUnit = new OperationUnit();
 
-        private TextField<String> operandField1;
-        private TextField<String> operandField2;
+        calculationForm = new Form("calculationForm");
 
-        private DropDownChoice<Operation> operations;
-        private Button submit;
+        operandsLabel = new Label("label_operands", (IModel) () -> getString("label_operands"));
 
-        private Label resultField;
+        operandField1 = new TextField<>("operandField1", new PropertyModel<String>(operationUnit, "operand1"));
+        operandField2 = new TextField<>("operandField2", new PropertyModel<String>(operationUnit, "operand2"));
 
-        private OperationUnit operationUnit;
+        operationsLabel = new Label("label_operations", (IModel) () -> getString("label_operations"));
+        operationsChoice = new DropDownChoice<>("operations", new Model<>(), Arrays.asList(Operation.values()));
 
-        // TODO: 21.03.2019 Extract AbstractReadOnlyModel for less code
-        public CalculationForm(String id) {
-            super(id);
+        resultLabel = new Label("label_result", (IModel) () -> getString("label_result"));
+        resultValue = new Label("lbl_4", new Model<>(""));
+        resultValue.setOutputMarkupId(true);
 
-            operationUnit = new OperationUnit();
-
-            add(new Label("label_operands", (IModel) () -> getString("label_operands")));
-            add(this.operandField1 = new TextField<>("operandField1", new PropertyModel<String>(operationUnit, "operand1")));
-            add(this.operandField2 = new TextField<>("operandField2", new PropertyModel<String>(operationUnit, "operand2")));
-
-            add(new Label("label_operations", (IModel) () -> getString("label_operations")));
-
-            // TODO: Normal initialization with creation of basic model
-            add(this.operations = new DropDownChoice<>("operations", new Model<>(), Arrays.asList(Operation.values())));
-            add(this.submit = new Button("submit"));
-
-            // TODO: This is the normal Label initialization for java 1.7
-//            add(new Label("label_result", new AbstractReadOnlyModel<String>() {
-//                @Override
-//                public String getObject() {
-//                    return getString("label_result");
-//                }
-//            }));
-
-            // TODO: This is how it looks in java 1.8 (lambda)
-            add(new Label("label_result", (IModel) () -> getString("label_result")));
-
-            add(this.resultField = new Label("lbl_4", new Model<>("")));
-
-        }
-
-        @Override
-        public void onSubmit() {
-            String operand1 = operandField1.getInput();
-            String operand2 = operandField2.getInput();
-            String calculation = Calculation.calculate(operations.getConvertedInput(), operand1, operand2).get(0);
-            resultField.setDefaultModel(new Model<>(calculation));
-
-            // TODO: Here we check if value really have changed
-            System.out.println(operationUnit);
-        }
+        submit = new AjaxButton("submit") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                super.onSubmit(target);
+                String operand1 = operandField1.getInput();
+                String operand2 = operandField2.getInput();
+                String calculation = Calculation.calculate(operationsChoice.getConvertedInput(), operand1, operand2).get(0);
+                resultValue.setDefaultModel(new Model<>(calculation));
+                target.add(resultValue);
+            }
+        };
     }
 }
