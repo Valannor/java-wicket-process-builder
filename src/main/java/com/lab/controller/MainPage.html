@@ -6,29 +6,10 @@
 </head>
 <body>
 
-<form wicket:id="calculationForm">
-    <div>
-        <span wicket:id="label_operands"></span>
-        <input wicket:id="operandField1"/>
-        <input wicket:id="operandField2"/>
-    </div>
-
+    <div wicket:id="calculationPanel1"/>
     <br>
-
-    <div>
-        <span wicket:id="label_operations"></span>
-        <select wicket:id="operations"/>
-        <!--Here we initialize value of button using wicket:message structure-->
-        <input wicket:id="submit" type="submit" wicket:message="value:button_submit"/>
-    </div>
-
     <br>
-
-    <div>
-        <span wicket:id="label_result"></span>
-        <span wicket:id="lbl_4"></span>
-    </div>
-</form>
+    <div wicket:id="calculationPanel2"/>
 
 </body>
 </html>
